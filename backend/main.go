@@ -29,14 +29,6 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	// 用原子变量存储最后一次收到pong时间戳
 	var lastPongUnix int64 = time.Now().Unix()
 
-	// 注释掉 尝试自己实现 pong 消息处理
-	// 监听 pong 消息, 收到后更新 lastPongUnix
-	// ws.SetPongHandler(func(string) error {
-	// 	log.Println("收到客户端Pong")
-	// 	atomic.StoreInt64(&lastPongUnix, time.Now().Unix())
-	// 	return nil
-	// })
-
 	// 心跳检测
 	go startHeartbeat(ws, &lastPongUnix)
 
